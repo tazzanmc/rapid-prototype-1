@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e6375d6f5d66b754cad6be3decfad98f
+guid: 1a5310ad4f62f6541aec3ecdb8238c67
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -127,7 +127,49 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: ducky
+  - name: Frame_0
+    originalName: 
+    pivot: {x: 0.5, y: -0.071428575}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 27
+      width: 14
+      height: 14
+    spriteID: 5b183e30a798bee45bf70a57e6887b81
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 27}
+  - name: Frame_1
+    originalName: 
+    pivot: {x: 0.5, y: -0.071428575}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 26
+      y: 27
+      width: 14
+      height: 14
+    spriteID: a4502af35f535ff499b95675a54041ce
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 26, y: 27}
+  - name: Frame_2
     originalName: 
     pivot: {x: 0.5, y: -0.06666667}
     alignment: 9
@@ -139,7 +181,7 @@ ScriptedImporter:
       y: 4
       width: 14
       height: 15
-    spriteID: 6c00d7f8d3b24154883c95c14ca99f32
+    spriteID: 60f6d7cbf11d62344bac18f7fd6f6937
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -148,30 +190,78 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
+  - name: Frame_3
+    originalName: 
+    pivot: {x: 0.5, y: -0.06666667}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 26
+      y: 4
+      width: 14
+      height: 15
+    spriteID: 04eb4b3911a675e40a862ab9b8f2e382
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 26, y: 4}
   spriteSheetImportData: []
   tileSetImportData: []
   asepriteLayers:
   - layerIndex: 0
     uuid:
-      value0: 365083522
+      value0: 2032900209
       value1: 0
       value2: 0
       value3: 0
     guid: 0
-    name: ducky
+    name: ducky 1
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: ducky
+    - name: Frame_0
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
         x: 1
         y: 1
         width: 14
+        height: 14
+      spriteId: 5b183e30a798bee45bf70a57e6887b81
+    - name: Frame_1
+      frameIndex: 1
+      additiveSortOrder: 0
+      cellRect:
+        x: 1
+        y: 1
+        width: 14
+        height: 14
+      spriteId: a4502af35f535ff499b95675a54041ce
+    - name: Frame_2
+      frameIndex: 2
+      additiveSortOrder: 0
+      cellRect:
+        x: 1
+        y: 1
+        width: 14
         height: 15
-      spriteId: 6c00d7f8d3b24154883c95c14ca99f32
+      spriteId: 60f6d7cbf11d62344bac18f7fd6f6937
+    - name: Frame_3
+      frameIndex: 3
+      additiveSortOrder: 0
+      cellRect:
+        x: 1
+        y: 1
+        width: 14
+        height: 15
+      spriteId: 04eb4b3911a675e40a862ab9b8f2e382
     linkedCells: []
     tileCells: []
     tileSetIndex: 0
@@ -182,4 +272,4 @@ ScriptedImporter:
   secondarySpriteTextures: []
   spritePackingTag: 
   canvasSize: {x: 16, y: 16}
-  previousTextureSize: {x: 32, y: 32}
+  previousTextureSize: {x: 64, y: 64}
