@@ -6,13 +6,19 @@ public class CitrusMove : MonoBehaviour
     public float speed = 5f;
     Rigidbody2D rb;
     Vector2 moveDirection;
-    
-
+    SpriteRenderer spriteRenderer;
+    public Sprite pacRight;
+    public Sprite pacLeft;
+    public Sprite pacDown;
+    public Sprite pacUp;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         moveDirection = Vector2.right;
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer.sprite = pacRight;
+        spriteRenderer.flipX = false;
     }
 
     // Update is called once per frame
@@ -40,12 +46,39 @@ public class CitrusMove : MonoBehaviour
         if (horizontalInput != 0)
         {
             moveDirection = new Vector2(horizontalInput, 0);
+
+            spriteRenderer.sprite = pacRight;
+            spriteRenderer.flipX = horizontalInput < 0;
         }
         else if (verticalInput != 0)
         { 
             moveDirection = new Vector2(0,verticalInput);
+
+            if (verticalInput > 0)
+            {
+                spriteRenderer.sprite = pacUp;
+            }
+            else
+            {
+                spriteRenderer.sprite = pacDown;
+            }
+            spriteRenderer.flipX = false;
         }
         
+    }
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Enemy"))
+        {
+            if (GameManager.Instance.powerMode)
+            {
+                other.GetComponent<Enemy>().Die();
+            }
+            else
+            {
+                GameManager.Instance.LoseLife();
+            }
+        }
     }
     void FixedUpdate()
     {
