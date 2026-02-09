@@ -8,6 +8,10 @@ public class GameManager : MonoBehaviour
     public bool powerMode = false;
     public float powerDuration = 8f;
     public static GameManager Instance;
+    Vector2 playerStartPostiton;
+    public SpriteRenderer Life1;
+    public SpriteRenderer Life2;
+    public SpriteRenderer Life3;
     public void AddScore(int amount)
     {
         score += amount;
@@ -16,7 +20,15 @@ public class GameManager : MonoBehaviour
     public void LoseLife()
     {
         lives--;
-        Debug.Log("Lives Left: " + lives);
+        UpdateLivesUI();
+        if(lives <= 0)
+        {
+            Debug.Log("Game Over");
+        }
+        else
+        {
+            RespawnPlayer();
+        }
     }
     public void ActivatePowerMode()
     {
@@ -28,9 +40,26 @@ public class GameManager : MonoBehaviour
     {
         powerMode = false;
     }
+    void UpdateLivesUI()
+    {
+        Life1.enabled = lives > 0;
+        Life2.enabled = lives > 1;
+        Life3.enabled = lives > 2;
+    }
+    void RespawnPlayer()
+    {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+
+        player.transform.position = playerStartPostiton;
+
+        Rigidbody2D rb = player.GetComponent<Rigidbody2D>();
+        rb.linearVelocity = Vector2.zero;
+    }
     void Awake()
     {
         Instance = this;
+        playerStartPostiton = GameObject.FindGameObjectWithTag("Player").transform.position;
+        UpdateLivesUI();
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
