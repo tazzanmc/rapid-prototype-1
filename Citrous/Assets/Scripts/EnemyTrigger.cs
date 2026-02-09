@@ -15,4 +15,5 @@ public class EnemyTrigger : MonoBehaviour
             GameManager.Instance.LoseLife();
         }
     }
+
 }
