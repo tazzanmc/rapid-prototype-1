@@ -1,87 +1,99 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class CitrusMove : MonoBehaviour
 {
     public float speed = 5f;
+
     Rigidbody2D rb;
     Vector2 moveDirection;
+    Vector2 spawnPosition;
+
     SpriteRenderer spriteRenderer;
+
     public Sprite pacRight;
-    public Sprite pacLeft;
-    public Sprite pacDown;
     public Sprite pacUp;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public Sprite pacDown;
+
+    bool isDead = false;
+
+    void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        moveDirection = Vector2.right;
         spriteRenderer = GetComponent<SpriteRenderer>();
+        spawnPosition = transform.position;
+        moveDirection = Vector2.right;
+    }
+
+    void Update()
+    {
+        if (isDead) return;
+
+        float h = 0;
+        float v = 0;
+
+        if (Keyboard.current.aKey.isPressed || Keyboard.current.leftArrowKey.isPressed) h = -1;
+        else if (Keyboard.current.dKey.isPressed || Keyboard.current.rightArrowKey.isPressed) h = 1;
+
+        if (Keyboard.current.wKey.isPressed || Keyboard.current.upArrowKey.isPressed) v = 1;
+        else if (Keyboard.current.sKey.isPressed || Keyboard.current.downArrowKey.isPressed) v = -1;
+
+        if (h != 0)
+        {
+            moveDirection = new Vector2(h, 0);
+            spriteRenderer.sprite = pacRight;
+            spriteRenderer.flipX = h < 0;
+        }
+        else if (v != 0)
+        {
+            moveDirection = new Vector2(0, v);
+            spriteRenderer.sprite = v > 0 ? pacUp : pacDown;
+            spriteRenderer.flipX = false;
+        }
+    }
+
+    void FixedUpdate()
+    {
+        if (isDead)
+        {
+            rb.linearVelocity = Vector2.zero;
+            return;
+        }
+
+        rb.linearVelocity = moveDirection * speed;
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (isDead) return;
+        if (!other.CompareTag("Enemy")) return;
+
+        if (GameManager.Instance.powerMode)
+        {
+            other.GetComponent<EnemyMovement>().Die();
+            GameManager.Instance.AddScore(200); // 👻 ghost score
+        }
+        else
+        {
+            isDead = true; // 🔒 LOCK DEATH
+            rb.linearVelocity = Vector2.zero;
+        }
+    }
+
+    public void HardReset()
+    {
+        transform.position = spawnPosition;
+        rb.linearVelocity = Vector2.zero;
+
+        isDead = false; // 🔓 UNLOCK
+        moveDirection = Vector2.right;
         spriteRenderer.sprite = pacRight;
         spriteRenderer.flipX = false;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        float horizontalInput = 0f;
-        float verticalInput = 0f;
-
-        if (Keyboard.current.aKey.isPressed || Keyboard.current.leftArrowKey.isPressed)
-        {
-            horizontalInput = -1f;
-        }
-        else if (Keyboard.current.dKey.isPressed || Keyboard.current.rightArrowKey.isPressed)
-        {
-            horizontalInput = 1f;
-        }
-        if (Keyboard.current.wKey.isPressed || Keyboard.current.upArrowKey.isPressed)
-        {
-            verticalInput = 1f;
-        }
-        else if (Keyboard.current.sKey.isPressed || Keyboard.current.downArrowKey.isPressed)
-        {
-            verticalInput = -1f;
-        }
-        if (horizontalInput != 0)
-        {
-            moveDirection = new Vector2(horizontalInput, 0);
-
-            spriteRenderer.sprite = pacRight;
-            spriteRenderer.flipX = horizontalInput < 0;
-        }
-        else if (verticalInput != 0)
-        { 
-            moveDirection = new Vector2(0,verticalInput);
-
-            if (verticalInput > 0)
-            {
-                spriteRenderer.sprite = pacUp;
-            }
-            else
-            {
-                spriteRenderer.sprite = pacDown;
-            }
-            spriteRenderer.flipX = false;
-        }
-        
-    }
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Enemy"))
-        {
-            if (GameManager.Instance.powerMode)
-            {
-                other.GetComponent<Enemy>().Die();
-            }
-            else
-            {
-                GameManager.Instance.LoseLife();
-            }
-        }
-    }
-    void FixedUpdate()
-    {
-        rb.linearVelocity = moveDirection * speed;
-    }
 }
+
+
+
+
+
+

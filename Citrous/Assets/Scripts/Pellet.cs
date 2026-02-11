@@ -2,24 +2,20 @@ using UnityEngine;
 
 public class Pellet : MonoBehaviour
 {
-    GameManager gameManager;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public int scoreValue = 10;
+
     void Start()
     {
-        gameManager = FindAnyObjectByType<GameManager>();
+        GameManager.Instance.RegisterPellet();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
-        {
-            gameManager.AddScore(10);
-            Destroy(gameObject);
-        }
+        if (!other.CompareTag("Player")) return;
+
+        GameManager.Instance.AddScore(scoreValue);
+        GameManager.Instance.PelletEaten();
+        Destroy(gameObject);
     }
 }
+

@@ -2,18 +2,17 @@ using UnityEngine;
 
 public class EnemyTrigger : MonoBehaviour
 {
-    void onTriggerEnter2D(Collider2D other)
+    void OnTriggerEnter2D(Collider2D other)
     {
-        if (!other.CompareTag("Player")) return;
+        if (!other.CompareTag("Player"))
+            return;
+
+        EnemyMovement enemy = GetComponentInParent<EnemyMovement>();
 
         if (GameManager.Instance.powerMode)
-        {
-            GetComponentInParent<Enemy>().Die();
-        }
+            enemy.Die();
         else
-        {
-            GameManager.Instance.LoseLife();
-        }
+            GameManager.Instance.PlayerDied();
     }
-
 }
+
